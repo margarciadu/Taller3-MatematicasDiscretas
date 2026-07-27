@@ -23,7 +23,7 @@ Este repositorio contiene la implementación en Python de los 10 ejercicios del 
 .
 ├── README.md               # Instrucciones del proyecto e información general
 ├── requirements.txt        # Librerías necesarias (numpy para simulación cuántica)
-├── docs/                   # Explicaciones matemáticas detalladas en Markdown/PDF
+├── docs/                   # Explicaciones matemáticas detalladas en PDF
 ├── src/                    # Código fuente del proyecto
 │   ├── crypto/             # Bloque A: Cifrado César, RSA y MPC
 │   ├── graphs/             # Bloque B: Dijkstra, Cierre de estaciones y Coloreo
