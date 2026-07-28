@@ -65,10 +65,10 @@ def dijkstra(graph: dict, start: str, target: str) -> tuple:
 graph = {
     'Portal': {'Calle26': 4, 'Bosa': 8},
     'Calle26': {'Portal': 4, 'Museo': 3, 'Centro': 6},
-    'Museo': {'Calle26': 3, 'Centro': 2, 'Universidad': 5},
+    'Museo': {'Calle26': 3, 'Centro': 2, 'Universidad': 5, 'Bosa': 10},
     'Centro': {'Calle26': 6, 'Museo': 2, 'Terminal': 7},
     'Universidad': {'Museo': 5, 'Terminal': 1, 'Suba': 4},
-    'Bosa': {'Portal': 8, 'Terminal': 9},
+    'Bosa': {'Portal': 8, 'Terminal': 9, 'Museo': 10},
     'Terminal': {'Centro': 7, 'Universidad': 1, 'Bosa': 9, 'Suba': 2},
     'Suba': {'Universidad': 4, 'Terminal': 2}
 }
