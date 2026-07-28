@@ -24,7 +24,6 @@ Este repositorio contiene la implementacion en Python de los 10 ejercicios del T
 ```text
 .
 ├── README.md               # Instrucciones del proyecto e informacion general
-├── requirements.txt        # Librerias necesarias (ninguna externa)
 ├── docs/                   # Explicacion matematica de las soluciones (PDF)
 ├── src/                    # Codigo fuente del proyecto
 │   ├── crypto/             # Bloque A: Cifrado Cesar, RSA y MPC
