@@ -1,0 +1,2 @@
+# Este proyecto no usa librerías externas.
+# Todos los módulos funcionan únicamente con la librería estándar de Python (math, random, heapq, itertools, collections).
