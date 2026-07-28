@@ -1,30 +1,34 @@
 import heapq
 
 """
-Algoritmo de Dijkstra para buscar la ruta mas corta
+Algoritmo de Dijkstra para la busqueda de la ruta mas corta en un grafo ponderado.
 """
 
 def dijkstra(graph: dict, start: str, target: str) -> tuple:
-    # Inicializamos todas las distancias en infinito, excepto el origen que es 0
+    # Validacion: Si el origen o el destino no existen en el grafo, no hay ruta
+    if start not in graph or target not in graph:
+        return float('inf'), []
+
+    # 1. Inicializamos todas las distancias en infinito, excepto el origen que es 0
     distances = {node: float('inf') for node in graph}
     distances[start] = 0
     
-    # Diccionario para rastrear el camino de donde viene
-    previous = {}
+    # Diccionario para rastrear el camino de procedencia (nodo_previo -> nodo_actual)
+    parents = {}
 
-    # Cola de prioridad
+    # 2. Cola de prioridad (min-heap) que guarda tuplas de la forma: (distancia_acumulada, nodo)
     pq = [(0, start)]
 
-    #  While principal
+    # 3. Bucle principal de exploracion
     while pq:
         # Extraemos el nodo con la menor distancia acumulada procesada hasta ahora
         curr_dist, curr_node = heapq.heappop(pq)
 
-        # Si alcanzamos el destino deseado, paramos la busqueda
+        # Optimizacion: Si alcanzamos el destino deseado, detenemos la busqueda
         if curr_node == target:
             break
 
-        # Si encontramos una distancia registrada menor a la procesada actual, la descartamos 
+        # Si encontramos una distancia registrada menor a la procesada actual, la descartamos
         if curr_dist > distances[curr_node]:
             continue
 
@@ -32,13 +36,13 @@ def dijkstra(graph: dict, start: str, target: str) -> tuple:
         for neighbor, weight in graph[curr_node].items():
             new_dist = curr_dist + weight
 
-            # Si la nueva ruta hacia el vecino es mas corta que la que teniamos registrada:
+            # Si la nueva ruta hacia el vecino es mas corta que la registrada:
             if new_dist < distances[neighbor]:
                 distances[neighbor] = new_dist
-                previous[neighbor] = curr_node
+                parents[neighbor] = curr_node
                 heapq.heappush(pq, (new_dist, neighbor))
 
-    # 4. Si la distancia final al destino sigue siendo infinito, significa que no existe un camino accesible
+    # 4. Si la distancia final al destino sigue siendo infinito, no existe un camino accesible
     if distances[target] == float('inf'):
         return float('inf'), []
 
@@ -46,31 +50,32 @@ def dijkstra(graph: dict, start: str, target: str) -> tuple:
     path = []
     curr = target
 
-    while curr in previous:
+    while curr in parents:
         path.append(curr)
-        curr = previous[curr]
+        curr = parents[curr]
 
-    # Añadimos el origen al final y volteamos la lista para mostrarla de Origen -> Destino
+    # Anadimos el origen al final y volteamos la lista para mostrarla de Origen -> Destino
     path.append(start)
     path.reverse()
 
     return distances[target], path
 
 
-# Ejemplo de Uso con Grafo de Prueba
-if __name__ == "__main__":
-    # Definicion del grafo
-    graph = {
-        'Portal': {'Calle26': 4, 'Bosa': 8},
-        'Calle26': {'Portal': 4, 'Museo': 3, 'Centro': 6},
-        'Museo': {'Calle26': 3, 'Centro': 2, 'Universidad': 5},
-        'Centro': {'Calle26': 6, 'Museo': 2, 'Terminal': 7},
-        'Universidad': {'Museo': 5, 'Terminal': 1, 'Suba': 4},
-        'Bosa': {'Portal': 8, 'Terminal': 9},
-        'Terminal': {'Centro': 7, 'Universidad': 1, 'Bosa': 9, 'Suba': 2},
-        'Suba': {'Universidad': 4, 'Terminal': 2}
-    }
+# Definicion del grafo
+graph = {
+    'Portal': {'Calle26': 4, 'Bosa': 8},
+    'Calle26': {'Portal': 4, 'Museo': 3, 'Centro': 6},
+    'Museo': {'Calle26': 3, 'Centro': 2, 'Universidad': 5},
+    'Centro': {'Calle26': 6, 'Museo': 2, 'Terminal': 7},
+    'Universidad': {'Museo': 5, 'Terminal': 1, 'Suba': 4},
+    'Bosa': {'Portal': 8, 'Terminal': 9},
+    'Terminal': {'Centro': 7, 'Universidad': 1, 'Bosa': 9, 'Suba': 2},
+    'Suba': {'Universidad': 4, 'Terminal': 2}
+}
 
+
+# Ejemplo de Ejecucion
+if __name__ == "__main__":
     start = 'Portal'
     target = 'Universidad'
 
