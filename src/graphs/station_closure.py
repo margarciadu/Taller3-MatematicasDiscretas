@@ -1,5 +1,9 @@
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+
 from copy import deepcopy
-from dijkstra import dijkstra, graph as city_graph
+from src.graphs.dijkstra import dijkstra, graph as city_graph
 
 """
 Analizador de impacto en redes de transporte tras la clausura de un nodo o estacion.
